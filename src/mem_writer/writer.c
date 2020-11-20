@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <sys/mman.h>
+#include <string.h>
 
-int i4_write_memory(unsigned char* code, size_t code_size) {
-	void* mem  = mmap(NULL, code_size, PROT_WRITE | PROT_EXEC, MAP_PRIVATE, -1, 0); // declareting mem as executable
-	memcpy(mem, code, code_size); // copy value
-	int (*func) () = mem; // cast to functions 
-	func(7, 5);
+const void* i4_write_memory(unsigned char* code, size_t code_size) {
+    void* mem  = mmap(NULL,
+                4096,
+                PROT_READ | PROT_WRITE | PROT_EXEC,
+                MAP_PRIVATE | MAP_ANON,
+                -1,
+                0); // declareting mem as executable
 
-	return 1; 
+    memcpy(mem, code, code_size); // copy value
+    return mem;
 }

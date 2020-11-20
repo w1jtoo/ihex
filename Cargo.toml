@@ -11,4 +11,5 @@ edition = "2018"
 [dependencies]
 
 [build-dependencies]
+libc = "*"
 cc = "1.0.0"
